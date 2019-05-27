@@ -1,6 +1,16 @@
 # MFC Science Calculator
 
-## Features
+## Interface
+
+GUI designing refers to the Microsoft Calculator, giving a simple & friendly visual feedback.   
+  
+![](https://i.loli.net/2019/05/27/5cebf4a478b8664049.jpg)
+
+
+## Features  
+
+Now (2019/5/24) supports:
+
 1. +-×÷ 
    四则运算
 2. power (x^y)
@@ -17,3 +27,8 @@
    支持负数（单目运算符）
 8. ERROR report
    报错提示
+
+
+## Scalability
+
+You can just write operator functions and add them to `map` to enable more functions.  
