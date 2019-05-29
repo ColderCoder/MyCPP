@@ -30,7 +30,7 @@ public:
 	UnaryOperator() :atRight(false) {}
 	UnaryOperator(operation_unary ope) :operation(ope), Operator(10), atRight(false) {}
 	UnaryOperator(operation_unary ope, bool right) :operation(ope), Operator(0), atRight(right) {}
-	double call(double a) { return (*operation)(a); }
+	double get(double a) { return (*operation)(a); }
 };
 
 class BinaryOperator :public Operator {
@@ -39,7 +39,7 @@ private:
 public:
 	BinaryOperator() {}
 	BinaryOperator(operation_binary ope, int p) :operation(ope), Operator(p) {}
-	double call(double a, double b) { return (*operation)(a, b); }
+	double get(double a, double b) { return (*operation)(a, b); }
 };
 
 namespace operations {
@@ -280,7 +280,7 @@ double calculate(queue<Node>& queue) {
 			if (ops.empty()) throw exception("no enough number provided for ope1");
 			op1 = ops.top();
 			ops.pop();
-			ops.push(node.value.unaryOperator->call(op1));
+			ops.push(node.value.unaryOperator->get(op1));
 			break;
 		case NodeType::ope2:
 			if (ops.size() < 2) throw exception("no enough number provided for ope2");
@@ -288,7 +288,7 @@ double calculate(queue<Node>& queue) {
 			ops.pop();
 			op1 = ops.top();
 			ops.pop();
-			ops.push(node.value.binaryOperator->call(op1, op2));
+			ops.push(node.value.binaryOperator->get(op1, op2));
 			break;
 		default:
 			throw exception("should not happen");
