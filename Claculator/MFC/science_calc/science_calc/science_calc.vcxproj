@@ -94,9 +94,8 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="ReadMe.txt" />
-    <None Include="res\bitmap1.bmp" />
-    <None Include="res\coldercoder.bmp" />
     <None Include="res\science_calc.ico" />
     <None Include="res\science_calc.rc2" />
   </ItemGroup>

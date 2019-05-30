@@ -33,7 +33,6 @@ protected:
 public:
 	afx_msg void OnBnClickedMore();
 	afx_msg void OnBnClickedButton2();
-	//afx_msg void OnStnClickedEdit1();
 };
 
 CAboutDlg::CAboutDlg() : CDialogEx(CAboutDlg::IDD)
@@ -48,7 +47,6 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
 	ON_BN_CLICKED(More, &CAboutDlg::OnBnClickedMore)
 	ON_BN_CLICKED(IDC_BUTTON2, &CAboutDlg::OnBnClickedButton2)
-	//ON_STN_CLICKED(IDC_EDIT1, &CAboutDlg::OnStnClickedEdit1)
 END_MESSAGE_MAP()
 
 

@@ -22,12 +22,7 @@
     <None Include="res\science_calc.ico">
       <Filter>资源文件</Filter>
     </None>
-    <None Include="res\bitmap1.bmp">
-      <Filter>资源文件</Filter>
-    </None>
-    <None Include="res\coldercoder.bmp">
-      <Filter>资源文件</Filter>
-    </None>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="science_calc.h">
