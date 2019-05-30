@@ -149,7 +149,7 @@ int parseUnaryOperator(queue<Node>& queue, stack<Node>& stack, const char* input
 		queue.push(Node(ope));
 	}
 	else {
-		while (!stack.empty() && stack.top().type != NodeType::leftb && *ope < (*stack.top().value.unaryOperator)) {
+		while (!stack.empty() && stack.top().type != NodeType::leftb && *ope <= (*stack.top().value.unaryOperator)) {
 			queue.push(stack.top());
 			stack.pop();
 		}
@@ -173,7 +173,7 @@ int parseBinaryOperator(queue<Node>& queue, stack<Node>& stack, const char* inpu
 	if (!ope) {
 		return parseUnaryOperator(queue, stack, input, start);
 	};
-	while (!stack.empty() && stack.top().type != NodeType::leftb && *ope < (*stack.top().value.binaryOperator)) {
+	while (!stack.empty() && stack.top().type != NodeType::leftb && *ope <= (*stack.top().value.binaryOperator)) {
 		queue.push(stack.top());
 		stack.pop();
 	}
@@ -295,7 +295,7 @@ double calculate(queue<Node>& queue) {
 			break;
 		}
 	}
-	if (ops.size() != 1) throw exception("mult numbers are given");
+	if (ops.size() != 1) throw exception("multi numbers are given");
 	return ops.top();
 }
 
