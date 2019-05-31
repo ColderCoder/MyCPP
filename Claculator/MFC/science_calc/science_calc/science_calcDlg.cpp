@@ -210,9 +210,9 @@ void Cscience_calcDlg::OnBnClickedCalc()
 			UpdateData(FALSE);
 		}
 		//convert to char*
-		char *ptr; 
-		ptr=UsrInput.GetBuffer(UsrInput.GetLength()); 
-		UsrInput.ReleaseBuffer();
+		char *ptr= (char*)(LPCTSTR)UsrInput;
+		//ptr=UsrInput.GetBuffer(UsrInput.GetLength()); 
+		//UsrInput.ReleaseBuffer();
 		try	//call function, return double, convert to CString
 		{
 		double result=calc(ptr);
@@ -221,6 +221,7 @@ void Cscience_calcDlg::OnBnClickedCalc()
 		catch(std::exception e){
 			UsrInput=e.what();}
 		UpdateData(FALSE);
+		
 }
 
 

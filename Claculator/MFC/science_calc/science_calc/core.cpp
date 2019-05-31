@@ -10,30 +10,31 @@ using namespace std;
 typedef double (*operation_unary)(double);
 typedef double (*operation_binary)(double, double);
 
-class Operator {
+class Operator {//base class of operators
 private:
 	int priority;
 public:
 	Operator() {}
 	Operator(int p) :priority(p) {}
+	//priority comparision reloaded
 	bool operator>(const Operator r) { return priority > r.priority; }
 	bool operator>=(const Operator r) { return priority >= r.priority; }
 	bool operator<(const Operator r) { return priority < r.priority; }
 	bool operator<=(const Operator r) { return priority <= r.priority; }
 };
 
-class UnaryOperator :public Operator {
+class UnaryOperator :public Operator {//UnaryOperator
 private:
 	operation_unary operation;
 public:
 	const bool atRight;
 	UnaryOperator() :atRight(false) {}
-	UnaryOperator(operation_unary ope) :operation(ope), Operator(10), atRight(false) {}
-	UnaryOperator(operation_unary ope, bool right) :operation(ope), Operator(0), atRight(right) {}
+	UnaryOperator(operation_unary ope) :operation(ope), Operator(10), atRight(false) {}//if at left of number
+	UnaryOperator(operation_unary ope, bool right) :operation(ope), Operator(0), atRight(right) {}//if at right
 	double get(double a) { return (*operation)(a); }
 };
 
-class BinaryOperator :public Operator {
+class BinaryOperator :public Operator {//BinaryOperator
 private:
 	operation_binary operation;
 public:
@@ -42,7 +43,7 @@ public:
 	double get(double a, double b) { return (*operation)(a, b); }
 };
 
-namespace operations {
+namespace operations {//you can add new operators in here and add them to the map
 	//function std::round() is C++11's, add it manually in VS2010
 	double round(double number)
 	{
@@ -67,7 +68,7 @@ namespace operations {
 map<string, UnaryOperator*> UnaryOperators;
 map<string, BinaryOperator*> BinaryOperators;
 
-void initOperators() {
+void initOperators() {//initialize the map
 	static bool inited = false;
 	if (inited) return;
 	inited = true;
@@ -87,19 +88,19 @@ void initOperators() {
 	BinaryOperators["^"] = new BinaryOperator(pow, 3);
 }
 
-namespace NodeType {
+namespace NodeType {//type of the node
 	enum Type {
 		number, ope1, ope2, leftb
 	};
 }
 
-union NodeValue {
+union NodeValue {//value of the node
 	double number;
 	UnaryOperator* unaryOperator;
 	BinaryOperator* binaryOperator;
 };
 
-class Node {
+class Node {//represents all kind of elements
 public:
 	Node() {}
 	Node(double n) :type(NodeType::number) { value.number = n; }
@@ -109,16 +110,16 @@ public:
 	NodeValue value;
 };
 
-bool isNumber(const char c) {
+bool isNumber(const char c) {//if selected string is a number
 	return (c >= '0' && c <= '9') || c == '.';
 }
-namespace PrevType {
+namespace PrevType {//type of the previous element to judge current operator is a UnaryOperator or BinaryOpertor 
 	enum Type {
 		number, leftb, rightb, ope1, ope2
 	};
 }
 
-char buf[200];
+char buf[200];//buffer for read
 
 PrevType::Type prevtype;
 
@@ -149,7 +150,7 @@ int parseUnaryOperator(queue<Node>& queue, stack<Node>& stack, const char* input
 		queue.push(Node(ope));
 	}
 	else {
-		while (!stack.empty() && stack.top().type != NodeType::leftb && *ope <= (*stack.top().value.unaryOperator)) {
+		while (!stack.empty() && stack.top().type != NodeType::leftb && *ope < (*stack.top().value.unaryOperator)) {
 			queue.push(stack.top());
 			stack.pop();
 		}
@@ -215,7 +216,7 @@ int parseRightBracket(queue<Node>& queue, stack<Node>& stack, const char* input,
 	return ++start;
 }
 
-void parse(queue<Node>& queue, const char* input) {
+void parse(queue<Node>& queue, const char* input) {//parse the notation, convert it to Reverse Polish notation, and store it in the queue
 	int ptr = 0;
 	stack<Node> stack;
 	bool previsnumberorrightb = false;
@@ -258,7 +259,7 @@ void parse(queue<Node>& queue, const char* input) {
 	}
 }
 
-double calculate(queue<Node>& queue) {
+double calculate(queue<Node>& queue) {//calculate the Reverse Polish notation stored in queue
 	Node node;
 	stack<double> ops;
 
@@ -299,10 +300,26 @@ double calculate(queue<Node>& queue) {
 	return ops.top();
 }
 
+void releaseOps() {//delete operators to release RAM
+	delete UnaryOperators["-"];
+	delete UnaryOperators["!"];
+	delete UnaryOperators["sin"];
+	delete UnaryOperators["cos"];
+	delete UnaryOperators["tan"];
+	delete UnaryOperators["sqrt"];
+	delete BinaryOperators["+"];
+	delete BinaryOperators["-"];
+	delete BinaryOperators["*"];
+	delete BinaryOperators["/"];
+	delete BinaryOperators["^"];
+}
+
 double calc(const char* input) {
-	initOperators();
-	queue<Node> queue;
-	parse(queue, input);
-	return calculate(queue);
+	initOperators();//initialize operators
+	queue<Node> queue;// create a queue to store the Reverse Polish notation
+	parse(queue, input);//parse the notation, convert it to Reverse Polish notation, and store it in the queue
+	double result = calculate(queue);////calculate the Reverse Polish notation stored in queue
+	releaseOps();//delete operators
+	return result;
 }
 
