@@ -77,51 +77,63 @@ void Random::OnBnClickedOk()
 		for (int i = 0; i < m1 * n1; i++) {
 			tmp.Format("%d", rand());
 			result1 += tmp;
-			if (i + 1 != m1 * n1 && (i + 1) % n1 == 0)
-				result1 += "\r\n";
-			else result1 += " ";
+			if (i + 1 != m1 * n1) {
+				if ((i + 1) % n1 == 0)
+					result1 += "\r\n";
+				else  result1 += " ";
+			}
 		}
 
 		for (int i = 0; i < m2 * n2; i++) {
 			tmp.Format("%d", rand());
 			result2 += tmp;
-			if (i + 1 != m2 * n2 && (i + 1) % n2 == 0)
-				result2 += "\r\n";
-			else result2 += " ";
+			if (i + 1 != m2 * n2) {
+				if ((i + 1) % n2 == 0)
+					result2 += "\r\n";
+				else result2 += " ";
+			}
 		}
 		break;
 	case 1://float
 		for (int i = 0; i < m1 * n1; i++) {
-			tmp.Format("%f", (float)(rand())/1000);
+			tmp.Format("%f", (float)(rand()) / 1000);
 			result1 += tmp;
-			if (i + 1 != m1 * n1 && (i + 1) % n1 == 0)
-				result1 += "\r\n";
-			else result1 += " ";
+			if (i + 1 != m1 * n1) {
+				if ((i + 1) % n1 == 0)
+					result1 += "\r\n";
+				else result1 += " ";
+			}
 		}
 
 		for (int i = 0; i < m2 * n2; i++) {
-			tmp.Format("%f", (float)(rand())/1000);
+			tmp.Format("%f", (float)(rand()) / 1000);
 			result2 += tmp;
-			if ( i + 1 != m2 * n2 && (i + 1) % n2 == 0)
-				result2 += "\r\n";
-			else result2 += " ";
+			if (i + 1 != m2 * n2) {
+				if ((i + 1) % n2 == 0)
+					result2 += "\r\n";
+				else result2 += " ";
+			}
 		}
 		break;
 	case 2://bool
 		for (int i = 0; i < m1 * n1; i++) {
-			tmp.Format("%d", rand()%2);
+			tmp.Format("%d", rand() % 2);
 			result1 += tmp;
-			if ( i + 1 != m1 * n1 && (i + 1) % n1 == 0)
-				result1 += "\r\n";
-			else result1 += " ";
+			if (i + 1 != m1 * n1) {
+				if ((i + 1) % n1 == 0)
+					result1 += "\r\n";
+				else result1 += " ";
+			}
 		}
 
 		for (int i = 0; i < m2 * n2; i++) {
-			tmp.Format("%d", rand()%2);
+			tmp.Format("%d", rand() % 2);
 			result2 += tmp;
-			if ( i + 1 != m2 * n2 && (i + 1) % n2 == 0)
-				result2 += "\r\n";
-			else result2 += " ";
+			if (i + 1 != m2 * n2) {
+				if ((i + 1) % n2 == 0)
+					result2 += "\r\n";
+				else result2 += " ";
+			}
 		}
 		break;
 	default:
